@@ -29,3 +29,10 @@ atus.subset <- atus %>%
                          stdv_social_hours = sd(SOCIAL_HOURS),
                          count = n())
 atus.subset %>% head(10)
+
+atus %>% 
+  group_by(respondent_sex = SEX,
+           children_under_18 = HH_CHILD) %>% 
+  summarize(working_hours = mean(mean(ACT_WORK/60)),
+            socializing_hours = mean(mean(ACT_SOCIAL/60)),
+            respondents = n())

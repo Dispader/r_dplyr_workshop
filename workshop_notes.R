@@ -46,3 +46,15 @@ atus.wide <- dcast(atus.long,
                    EDUC ~ REGION,
                    value.var = "count")
 atus.wide %>% head(10)
+
+atus %>% 
+  select(EDUC, REGION, SEX) %>% 
+  group_by(EDUC, REGION, SEX) %>% 
+  summarize(count = n()) %>% 
+  dcast(EDUC ~ REGION + SEX, value.var = "count")
+
+atus %>% 
+  select(EDUC, REGION, SEX) %>% 
+  group_by(EDUC, REGION, SEX) %>% 
+  summarize(count = n()) %>% 
+  dcast(EDUC + REGION ~ SEX, value.var = "count")

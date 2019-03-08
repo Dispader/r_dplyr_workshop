@@ -1,7 +1,19 @@
-# Dplyr workshop notes
+---
+title: "LATIS Dplyr workshop"
+output: html_notebook
+---
 
-## March 8th, 2019
+This [R Markdown](http://rmarkdown.rstudio.com) contains walkthrough exercises for the [LATIS](https://cla.umn.edu/latis)
 
+The class materials in this repository were obtained from [z.umn.edu/latisdwR](https://z.umn.edu/latisdwR).
+
+Data comes from the [IPUMS](https://en.wikipedia.org/wiki/IPUMS) effort.
+
+## editing noted
+
+Cmd-Shift-M creates a %>% 
+
+```{r}
 # install.packages("dplyr")
 library(dplyr)
 
@@ -10,22 +22,17 @@ library(dplyr)
 
 setwd("~/Development/github/Dispader/r_dplyr_workshop")
 load("ATUSdata_subset.Rdata")
-#View(atus)
+View(atus)
 
 atus.subset1 <- select(atus, YEAR, ACT_WORK, ACT_SOCIAL)
 atus.subset1 <- filter(atus.subset1, YEAR == "2012")
 atus.subset1
 
 atus.subset <- atus %>% 
-               #select(YEAR, ACT_WORK, ACT_SOCIAL) %>% 
+               select(YEAR, ACT_WORK, ACT_SOCIAL) %>% 
                filter(YEAR == "2012") %>% 
                mutate(WORK_HOURS = ACT_WORK/60,
                       SOCIAL_HOURS = ACT_SOCIAL/60) %>% 
-               arrange(desc(ACT_WORK)) %>% 
-               group_by(REGION, EDUC) %>% 
-               summarize(mean_work_hours = mean(WORK_HOURS),
-                         stdv_work_hours = sd(WORK_HOURS),
-                         mean_social_hours = mean(SOCIAL_HOURS),
-                         stdv_social_hours = sd(SOCIAL_HOURS),
-                         count = n())
+               arrange(desc(ACT_WORK))
 atus.subset %>% head(10)
+```

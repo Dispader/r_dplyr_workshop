@@ -36,3 +36,13 @@ atus %>%
   summarize(working_hours = mean(mean(ACT_WORK/60)),
             socializing_hours = mean(mean(ACT_SOCIAL/60)),
             respondents = n())
+
+atus.long <- atus %>% 
+  select(EDUC, REGION) %>% 
+  group_by(EDUC, REGION) %>% 
+  summarize(count = n())
+
+atus.wide <- dcast(atus.long,
+                   EDUC ~ REGION,
+                   value.var = "count")
+atus.wide %>% head(10)
